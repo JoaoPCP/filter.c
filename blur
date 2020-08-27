@@ -1,0 +1,154 @@
+// Blur image
+void blur(int height, int width, RGBTRIPLE image[height][width])
+{
+    //creating an array to store the original pixels value to not loosing them while calculating the new values
+    for (int i = 0; i < height; i++)
+    {
+        for(int j = 0; j < width; j++)
+        {
+            //creating an array to store the original pixels value to not loosing them while calculating the new values
+            RGBTRIPLE copy[height][width];
+            copy[i][j] = image[i][j];
+            
+            //calculating average values
+            int avrRed;
+            int avrGreen;
+            int avrBlue;
+            
+            
+            if(image[i] == image[0] || image[i] == image[height - 1] || image[j] == image[0] || image[j] == image[width - 1] )
+            {
+                //corner 1
+                if(image[i] == image[0] && image[j] == image[0])
+                {
+                    float sumRed = copy[i][j].rgbtRed + copy[i][j + 1].rgbtRed + copy[i + 1][j].rgbtRed + copy[i + 1][j + 1].rgbtRed;
+                    float sumGreen = copy[i][j].rgbtGreen + copy[i][j + 1].rgbtGreen + copy[i + 1][j].rgbtGreen + copy[i + 1][j + 1].rgbtGreen;
+                    float sumBlue = copy[i][j].rgbtBlue + copy[i][j + 1].rgbtBlue + copy[i + 1][j].rgbtBlue + copy[i + 1][j + 1].rgbtBlue; 
+                    avrRed = round(sumRed/4);
+                    avrGreen = round(sumGreen/4);
+                    avrBlue = round(sumBlue/4);
+                     //creating the new pixel
+                    image[i][j].rgbtRed = avrRed;
+                    image[i][j].rgbtGreen = avrGreen;
+                    image[i][j].rgbtBlue = avrBlue;
+                }
+                //corner 2
+                else if(image[i] == image[0] && image[j] == image[width - 1])
+                {
+                    float sumRed = copy[i][j].rgbtRed + copy[i][j - 1].rgbtRed + copy[i + 1][j].rgbtRed + copy[i + 1][j - 1].rgbtRed;
+                    float sumGreen = copy[i][j].rgbtGreen + copy[i][j - 1].rgbtGreen + copy[i + 1][j].rgbtGreen + copy[i + 1][j - 1].rgbtGreen;
+                    float sumBlue = copy[i][j].rgbtBlue + copy[i][j - 1].rgbtBlue + copy[i + 1][j].rgbtBlue + copy[i + 1][j - 1].rgbtBlue; 
+                    avrRed = round(sumRed/4);
+                    avrGreen = round(sumGreen/4);
+                    avrBlue = round(sumBlue/4);
+                     //creating the new pixel
+                    image[i][j].rgbtRed = avrRed;
+                    image[i][j].rgbtGreen = avrGreen;
+                    image[i][j].rgbtBlue = avrBlue;
+                }
+                //corner 3
+                else if (image[i] == image[height - 1] && image[j] == image[0])
+                {
+                    float sumRed = copy[i][j].rgbtRed + copy[i][j + 1].rgbtRed + copy[i - 1][j].rgbtRed + copy[i - 1][j + 1].rgbtRed;
+                    float sumGreen = copy[i][j].rgbtGreen + copy[i][j + 1].rgbtGreen + copy[i - 1][j].rgbtGreen + copy[i - 1][j + 1].rgbtGreen;
+                    float sumBlue = copy[i][j].rgbtBlue + copy[i][j + 1].rgbtBlue + copy[i - 1][j].rgbtBlue + copy[i - 1][j + 1].rgbtBlue; 
+                    avrRed = round(sumRed/4);
+                    avrGreen = round(sumGreen/4);
+                    avrBlue = round(sumBlue/4);
+                     //creating the new pixel
+                    image[i][j].rgbtRed = avrRed;
+                    image[i][j].rgbtGreen = avrGreen;
+                    image[i][j].rgbtBlue = avrBlue;
+                }
+                //corner 4
+                else if (image[i] == image[height - 1] && image[j]  == image[width - 1])
+                {
+                    float sumRed = copy[i][j].rgbtRed + copy[i][j - 1].rgbtRed + copy[i - 1][j].rgbtRed + copy[i - 1][j - 1].rgbtRed;
+                    float sumGreen = copy[i][j].rgbtGreen + copy[i][j - 1].rgbtGreen + copy[i - 1][j].rgbtGreen + copy[i - 1][j - 1].rgbtGreen;
+                    float sumBlue = copy[i][j].rgbtBlue + copy[i][j - 1].rgbtBlue + copy[i - 1][j].rgbtBlue + copy[i - 1][j - 1].rgbtBlue; 
+                    avrRed = round(sumRed/4);
+                    avrGreen = round(sumGreen/4);
+                    avrBlue = round(sumBlue/4);
+                     //creating the new pixel
+                    image[i][j].rgbtRed = avrRed;
+                    image[i][j].rgbtGreen = avrGreen;
+                    image[i][j].rgbtBlue = avrBlue;
+                }
+                //border 1 
+                else if (image[i] == 0)
+                {
+                    float sumRed = copy[i][j - 1].rgbtRed + copy[i][j].rgbtRed + copy[i][j + 1].rgbtRed + copy[i + 1][j - 1].rgbtRed + copy[i + 1][j].rgbtRed + copy[i + 1][j +1].rgbtRed;
+                    float sumGreen = copy[i][j - 1].rgbtGreen + copy[i][j].rgbtGreen + copy[i][j + 1].rgbtGreen + copy[i + 1][j - 1].rgbtGreen + copy[i + 1][j].rgbtGreen + copy[i + 1][j +1].rgbtGreen;
+                    float sumBlue = copy[i][j - 1].rgbtBlue + copy[i][j].rgbtBlue + copy[i][j + 1].rgbtBlue + copy[i + 1][j - 1].rgbtBlue + copy[i + 1][j].rgbtBlue + copy[i + 1][j +1].rgbtBlue;
+                    avrRed = round(sumRed/6);
+                    avrGreen = round(sumBlue/6);
+                    avrBlue = round(sumGreen/6);
+                     //creating the new pixel
+                    image[i][j].rgbtRed = avrRed;
+                    image[i][j].rgbtGreen = avrGreen;
+                    image[i][j].rgbtBlue = avrBlue;
+                }
+                //border 2
+                else if (image[i] == image[height - 1])
+                {
+                    float sumRed = copy[i - 1][j - 1].rgbtRed + copy[i - 1][j].rgbtRed + copy[i - 1][j + 1].rgbtRed + copy[i][j - 1].rgbtRed + copy[i][j].rgbtRed + copy[i][j + 1].rgbtRed;
+                    float sumGreen = copy[i - 1][j - 1].rgbtGreen + copy[i - 1][j].rgbtGreen + copy[i - 1][j + 1].rgbtGreen + copy[i][j - 1].rgbtGreen + copy[i][j].rgbtGreen + copy[i][j + 1].rgbtGreen;
+                    float sumBlue = copy[i - 1][j - 1].rgbtBlue + copy[i - 1][j].rgbtBlue + copy[i - 1][j + 1].rgbtBlue + copy[i][j - 1].rgbtBlue + copy[i][j].rgbtBlue + copy[i][j + 1].rgbtBlue;
+                    avrRed = round(sumRed/6);
+                    avrGreen = round(sumBlue/6);
+                    avrBlue = round(sumGreen/6);
+                     //creating the new pixel
+                    image[i][j].rgbtRed = avrRed;
+                    image[i][j].rgbtGreen = avrGreen;
+                    image[i][j].rgbtBlue = avrBlue;
+                }
+                //border 3
+                else if (image[j] == image[0])
+                {
+                    float sumRed = copy[i - 1][j].rgbtRed + copy[i - 1][j + 1].rgbtRed + copy[i][j].rgbtRed + copy[i][j + 1].rgbtRed +  copy[i + 1][j].rgbtRed + copy[i + 1][j +1].rgbtRed;
+                    float sumGreen = copy[i - 1][j].rgbtGreen + copy[i - 1][j + 1].rgbtGreen + copy[i][j].rgbtGreen + copy[i][j + 1].rgbtGreen + copy[i + 1][j].rgbtGreen + copy[i + 1][j +1].rgbtGreen;
+                    float sumBlue = copy[i - 1][j].rgbtBlue + copy[i - 1][j + 1].rgbtBlue +  copy[i][j].rgbtBlue + copy[i][j + 1].rgbtBlue + copy[i + 1][j].rgbtBlue + copy[i + 1][j +1].rgbtBlue;
+                    avrRed = round(sumRed/6);
+                    avrGreen = round(sumBlue/6);
+                    avrBlue = round(sumGreen/6);
+                     //creating the new pixel
+                    image[i][j].rgbtRed = avrRed;
+                    image[i][j].rgbtGreen = avrGreen;
+                    image[i][j].rgbtBlue = avrBlue;
+                }
+                //border 4
+                else if (image[j] == image[width - 1])
+                {
+                    float sumRed = copy[i - 1][j - 1].rgbtRed + copy[i - 1][j].rgbtRed + copy[i][j - 1].rgbtRed + copy[i][j].rgbtRed + copy[i + 1][j - 1].rgbtRed + copy[i + 1][j].rgbtRed ;
+                    float sumGreen = copy[i - 1][j - 1].rgbtGreen + copy[i - 1][j].rgbtGreen + copy[i][j - 1].rgbtGreen + copy[i][j].rgbtGreen + copy[i + 1][j - 1].rgbtGreen + copy[i + 1][j].rgbtGreen;
+                    float sumBlue = copy[i - 1][j - 1].rgbtBlue + copy[i - 1][j].rgbtBlue + copy[i][j - 1].rgbtBlue + copy[i][j].rgbtBlue + copy[i + 1][j - 1].rgbtBlue + copy[i + 1][j].rgbtBlue;
+                    avrRed = round(sumRed/6);
+                    avrGreen = round(sumBlue/6);
+                    avrBlue = round(sumGreen/6);
+                     //creating the new pixel
+                    image[i][j].rgbtRed = avrRed;
+                    image[i][j].rgbtGreen = avrGreen;
+                    image[i][j].rgbtBlue = avrBlue;
+                }
+                //every other pixel
+                
+
+            }   
+           else
+        {
+            float sumRed = copy[i - 1][j - 1].rgbtRed + copy[i - 1][j].rgbtRed + copy[i - 1][j + 1].rgbtRed + copy[i][j - 1].rgbtRed + copy[i][j].rgbtRed + copy[i][j + 1].rgbtRed + copy[i + 1][j - 1].rgbtRed + copy[i + 1][j].rgbtRed + copy[i + 1][j +1].rgbtRed;
+            float sumGreen = copy[i - 1][j - 1].rgbtGreen + copy[i - 1][j].rgbtGreen + copy[i - 1][j + 1].rgbtGreen + copy[i][j - 1].rgbtGreen + copy[i][j].rgbtGreen + copy[i][j + 1].rgbtGreen + copy[i + 1][j - 1].rgbtGreen + copy[i + 1][j].rgbtGreen + copy[i + 1][j +1].rgbtGreen;
+            float sumBlue = copy[i - 1][j - 1].rgbtBlue + copy[i - 1][j].rgbtBlue + copy[i - 1][j + 1].rgbtBlue + copy[i][j - 1].rgbtBlue + copy[i][j].rgbtBlue + copy[i][j + 1].rgbtBlue + copy[i + 1][j - 1].rgbtBlue + copy[i + 1][j].rgbtBlue + copy[i + 1][j +1].rgbtBlue;
+            avrRed = round(sumRed/9);
+            avrGreen = round(sumGreen/9);
+            avrBlue = round (sumBlue/9);
+            //creating the new pixel
+             image[i][j].rgbtRed = avrRed;
+             image[i][j].rgbtGreen = avrGreen;
+             image[i][j].rgbtBlue = avrBlue;
+                }
+        }
+        
+    }
+    return;
+}
